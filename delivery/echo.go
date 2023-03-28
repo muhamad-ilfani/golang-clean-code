@@ -26,4 +26,6 @@ type UseCase struct {
 func NewEchoHandler(ctx context.Context, c *echo.Echo, uc UseCase) {
 	obj := &echoObject{c, uc}
 	obj.initRoute(ctx)
+
+	obj.Logger.Fatal(obj.Start(":8000"))
 }

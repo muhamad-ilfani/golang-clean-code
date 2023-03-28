@@ -1,4 +1,4 @@
-package users
+package users_case
 
 import (
 	"project2/usecases"
