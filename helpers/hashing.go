@@ -2,11 +2,11 @@ package helpers
 
 import "golang.org/x/crypto/bcrypt"
 
-func HashPass(p string) string {
+func HashPass(p string) []byte {
 	salt := 8
 	password := []byte(p)
 	hash, _ := bcrypt.GenerateFromPassword(password, salt)
-	return string(hash)
+	return hash
 }
 
 func ComparePass(h, p []byte) bool {

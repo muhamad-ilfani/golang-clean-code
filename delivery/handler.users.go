@@ -18,11 +18,17 @@ func RegisterUser(ctx context.Context, uc usecases.UserUseCase) echo.HandlerFunc
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{
 				"message": FailedToUnmarshall,
-				"error":   err,
+				"error":   err.Error(),
 			})
 		}
 
-		res, _, err := uc.RegisterUser(ctx, form)
+		res, httpcode, err := uc.RegisterUser(ctx, form)
+		if err != nil {
+			return c.JSON(httpcode, map[string]interface{}{
+				"message": FailedToRegister,
+				"error":   err.Error(),
+			})
+		}
 
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"message": SuccessMsg,

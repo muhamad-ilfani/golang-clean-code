@@ -14,9 +14,14 @@ type UserUseCase interface {
 }
 
 type RegisterUserRequest struct {
+	UserName string `json:"user_name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type RegisterUserResponse struct {
+	UserName string `json:"user_name"`
+	Email    string `json:"email"`
 }
 
 type LoginUserRequest struct {

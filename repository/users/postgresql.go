@@ -6,12 +6,14 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+type List []interface{}
+
 type PostgreSQLConn struct {
-	tc *sqlx.DB
+	tc *sqlx.Tx
 }
 
 type Repository interface {
 	repository.UserRepo
 }
 
-func NewRepository(tc *sqlx.DB) Repository { return &PostgreSQLConn{tc} }
+func NewRepository(tc *sqlx.Tx) Repository { return &PostgreSQLConn{tc} }

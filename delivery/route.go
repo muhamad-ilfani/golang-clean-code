@@ -9,5 +9,5 @@ import (
 func (x *echoObject) initRoute(ctx context.Context) {
 	x.Echo = echo.New()
 	x.Echo.GET("/", welcome(ctx))
-	x.Echo.POST("/login", RegisterUser(ctx, x.UserUseCase))
+	x.Echo.POST("/register", RegisterUser(ctx, x.UserUseCase))
 }

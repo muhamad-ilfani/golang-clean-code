@@ -8,10 +8,11 @@ import (
 )
 
 const (
-	FailedToUnmarshall = "Failed to Unmarshall"
 	TokenIsRequired    = "Token must be provided"
 	SuccessMsg         = "Success"
 	WelcomeMsg         = "welcome"
+	FailedToUnmarshall = "Failed to Unmarshall"
+	FailedToRegister   = "Failed to Register"
 )
 
 type echoObject struct {
