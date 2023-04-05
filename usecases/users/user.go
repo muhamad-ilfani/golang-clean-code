@@ -5,6 +5,7 @@ import (
 	"project2/usecases"
 	"time"
 
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -22,7 +23,8 @@ type Configuration struct {
 }
 
 type Depencency struct {
-	Postgresql *sqlx.DB
+	Postgresql    *sqlx.DB
+	KafkaProducer *kafka.Producer
 }
 
 type usecase struct {
