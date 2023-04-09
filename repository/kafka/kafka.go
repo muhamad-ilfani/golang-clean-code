@@ -62,7 +62,7 @@ func (x *kafkaProducer) NotifyRegistration(
 	/*req*/ ctx context.Context, request repository.NotifyRegistrationRequest) (
 	/*res*/ err error,
 ) {
-	topic := "project2.registration"
+	topic := "registration.notification"
 
 	return x.PublishData(ctx, topic, request)
 }

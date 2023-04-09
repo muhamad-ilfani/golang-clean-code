@@ -2,16 +2,16 @@ package users_case
 
 import (
 	"errors"
+	kafka_producer "project2/repository/kafka"
 	"project2/usecases"
 	"time"
 
-	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/jmoiron/sqlx"
 )
 
 var (
-	EmailNotValid    = errors.New("Email not valid")
-	PasswordNotValid = errors.New("Password not valid")
+	EmailNotValid    = errors.New("email not valid")
+	PasswordNotValid = errors.New("password not valid")
 )
 
 func New(c Configuration, d Depencency) usecases.UserUseCase {
@@ -24,7 +24,7 @@ type Configuration struct {
 
 type Depencency struct {
 	Postgresql    *sqlx.DB
-	KafkaProducer *kafka.Producer
+	KafkaProducer kafka_producer.Contract
 }
 
 type usecase struct {

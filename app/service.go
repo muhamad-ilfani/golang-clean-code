@@ -3,7 +3,8 @@ package app
 import (
 	"context"
 	"project2/delivery"
-	"project2/delivery/kafka"
+	kafka_subs "project2/delivery/kafka"
+	kafka_producer "project2/repository/kafka"
 	"project2/usecases"
 	users_case "project2/usecases/users"
 	"time"
@@ -12,7 +13,8 @@ import (
 func (x *App) initService(ctx context.Context) (err error) {
 	timeout := 55 * time.Second
 
-	kafka.InitSubscriptions(ctx, kafka.Usecase{})
+	kafka_subs.InitSubscriptions(ctx, kafka_subs.Usecase{})
+	kafka_producer_repo := kafka_producer.NewKafkaProducer(x.kafkaProducer)
 
 	usercase := users_case.New(
 		users_case.Configuration{
@@ -20,7 +22,7 @@ func (x *App) initService(ctx context.Context) (err error) {
 		},
 		users_case.Depencency{
 			Postgresql:    x.DB,
-			KafkaProducer: x.kafkaProducer,
+			KafkaProducer: kafka_producer_repo,
 		},
 	)
 

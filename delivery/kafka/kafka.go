@@ -27,8 +27,8 @@ func InitSubscriptions(
 
 	subscribers := []SubcribeParams{
 		{
-			"project2",
-			"project2.registration",
+			"registration",
+			"registration.notification",
 			true,
 			callBackRegistration(ctx),
 		},

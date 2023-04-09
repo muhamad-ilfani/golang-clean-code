@@ -2,9 +2,9 @@ package users_case
 
 import (
 	"context"
+	"net/http"
 	"project2/helpers"
 	"project2/repository"
-	"project2/repository/kafka"
 	us "project2/repository/users"
 	"project2/usecases"
 	"regexp"
@@ -18,10 +18,10 @@ func (x *usecase) RegisterUser(
 	ctx, cancel := context.WithTimeout(ctx, x.Configuration.Timeout)
 	defer cancel()
 
-	/*err = RequestValidation(req)
+	err = RequestValidation(req)
 	if err != nil {
 		return res, http.StatusBadRequest, err
-	}*/
+	}
 
 	tx, err := x.Postgresql.BeginTxx(ctx, nil)
 	if err == nil && tx != nil {
@@ -48,13 +48,12 @@ func (x *usecase) RegisterUser(
 		Email:    req.Email,
 	}
 
-	newKafka := kafka.NewKafkaProducer(x.KafkaProducer)
 	kafkaMessage := repository.NotifyRegistrationRequest{
 		UserName: req.UserName,
 		Email:    req.Email,
 	}
 
-	if err = newKafka.NotifyRegistration(ctx, kafkaMessage); err != nil {
+	if err = x.KafkaProducer.NotifyRegistration(ctx, kafkaMessage); err != nil {
 		return res, httpcode, err
 	}
 
